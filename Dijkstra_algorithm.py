@@ -1,7 +1,7 @@
 from collections import defaultdict
 import numpy as np
 
-class Graph:
+class Undirected_Graph:
     def __init__(self):
         self.nodes=set()
         self.edges=defaultdict(list)
@@ -14,21 +14,39 @@ class Graph:
         self.nodes.add(to_node)
         self.nodes.add(from_node)
         self.edges[from_node].append(to_node)
-        
-#uncomment if you want undirected graph
-#        self.edges[to_node].append(from_node)
+        self.edges[to_node].append(from_node)
+		
         if from_node not in self.distances:
             self.distances[from_node]={to_node:distance}
         else:
             self.distances[from_node][to_node]=distance
 
-#uncomment below if you want undirected graph
 
-#        if to_node not in self.distances:
-#            self.distances[to_node]={from_node:distance}
-#        else:
-#            self.distances[to_node][from_node]=distance
-#
+        if to_node not in self.distances:
+            self.distances[to_node]={from_node:distance}
+        else:
+            self.distances[to_node][from_node]=distance
+
+
+class Directed_Graph:
+    def __init__(self):
+        self.nodes=set()
+        self.edges=defaultdict(list)
+        self.distances={}
+
+    def add_node(self,name):
+        self.nodes.append(name)
+        
+    def add_edge(self,from_node, to_node,distance):
+        self.nodes.add(to_node)
+        self.nodes.add(from_node)
+        self.edges[from_node].append(to_node)
+
+		
+        if from_node not in self.distances:
+            self.distances[from_node]={to_node:distance}
+        else:
+            self.distances[from_node][to_node]=distance		
 
 
 def dijkstra(graph,initial_node):
@@ -62,7 +80,7 @@ def dijkstra(graph,initial_node):
 
 
 
-graph=Graph()
+graph=Directed_Graph()
 graph.add_edge('a','b',5)
 graph.add_edge('a','c',7)
 graph.add_edge('a','d',8)
